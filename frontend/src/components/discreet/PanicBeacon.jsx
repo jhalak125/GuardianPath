@@ -84,6 +84,9 @@ export default function PanicBeacon() {
     window.open(url, '_blank');
   };
 
+  // Filter only trusted family contacts
+  const familyContacts = (contacts || []).filter(c => !c.phone.includes("112") && !c.name.toLowerCase().includes("police"));
+
   return (
     <div style={{
       position: 'fixed',
@@ -95,9 +98,9 @@ export default function PanicBeacon() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      padding: 'clamp(10px, 2.5vh, 20px) clamp(10px, 2.5vw, 20px)',
+      padding: 'clamp(8px, 2vh, 18px) clamp(10px, 2.5vw, 20px)',
       overflowY: 'auto'
-    }}>
+    }} className="no-scrollbar">
       {/* Strobe Effect Canvas/Underlay */}
       {isStrobeActive && (
         <div 
@@ -117,22 +120,22 @@ export default function PanicBeacon() {
         <div 
           className="animate-pulse-crimson"
           style={{
-            width: 'clamp(42px, 10vw, 56px)',
-            height: 'clamp(42px, 10vw, 56px)',
+            width: 'clamp(38px, 8vw, 50px)',
+            height: 'clamp(38px, 8vw, 50px)',
             borderRadius: '50%',
             background: 'rgba(255, 42, 109, 0.2)',
             border: '2px solid var(--neon-crimson)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            margin: '0 auto 6px',
+            margin: '0 auto 4px',
             boxShadow: 'var(--shadow-glow-crimson)'
           }}
         >
-          <ShieldAlert size={26} color="var(--neon-crimson)" />
+          <ShieldAlert size={24} color="var(--neon-crimson)" />
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.15rem, 4vw, 1.7rem)', color: '#fff', letterSpacing: '0.05em', margin: 0 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', color: '#fff', letterSpacing: '0.04em', margin: 0 }}>
           CRITICAL SOS DISPATCH ACTIVE
         </h1>
 
@@ -143,80 +146,80 @@ export default function PanicBeacon() {
           background: 'rgba(255, 42, 109, 0.2)', 
           color: 'var(--neon-crimson)',
           border: '1px solid var(--border-crimson)',
-          padding: '2px 10px',
+          padding: '2px 8px',
           borderRadius: '16px',
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.72rem',
+          fontSize: '0.7rem',
           fontWeight: 700,
-          marginTop: '4px'
+          marginTop: '3px'
         }}>
-          <Radio size={12} className="animate-beacon-live" />
+          <Radio size={11} className="animate-beacon-live" />
           <span>TRIGGER: {sosTriggerType || 'MANUAL_PANIC'} • 112 NOTIFIED</span>
         </div>
       </div>
 
       {/* Center Emergency Contacts Alert Stream */}
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '500px', width: '100%', margin: '8px auto' }}>
-        <div className="glass-panel-crimson" style={{ padding: '12px 14px', borderRadius: '14px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '480px', width: '100%', margin: '4px auto' }}>
+        <div className="glass-panel-crimson" style={{ padding: '10px 12px', borderRadius: '12px' }}>
           
           {/* Automatic Dispatch Confirmation Banner */}
           <div style={{
             background: 'rgba(0, 255, 157, 0.12)',
             border: '1px solid rgba(0, 255, 157, 0.4)',
             borderRadius: '6px',
-            padding: '6px 10px',
+            padding: '5px 8px',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            marginBottom: '8px'
+            gap: '6px',
+            marginBottom: '6px'
           }}>
-            <BellRing size={16} color="var(--neon-emerald)" className="animate-beacon-live" />
-            <div style={{ fontSize: '0.75rem', color: 'var(--neon-emerald)', fontWeight: 600, lineHeight: 1.3 }}>
+            <BellRing size={14} color="var(--neon-emerald)" className="animate-beacon-live" />
+            <div style={{ fontSize: '0.72rem', color: 'var(--neon-emerald)', fontWeight: 600, lineHeight: 1.2 }}>
               ✓ SOS Alert & Live GPS transmitted to Mummy (+91 98201 23456) & 112!
             </div>
           </div>
 
           {/* Location & Safe Haven Status */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '8px' }}>
-            <div style={{ background: 'rgba(0,0,0,0.45)', padding: '6px 8px', borderRadius: '6px' }}>
-              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <MapPin size={11} color="var(--neon-cyan)" /> GPS Coordinates
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '6px' }}>
+            <div style={{ background: 'rgba(0,0,0,0.45)', padding: '5px 8px', borderRadius: '6px' }}>
+              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <MapPin size={10} color="var(--neon-cyan)" /> GPS Coordinates
               </div>
-              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#fff' }}>
+              <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#fff' }}>
                 {latStr}° N, {lngStr}° E
               </strong>
             </div>
 
-            <div style={{ background: 'rgba(0,0,0,0.45)', padding: '6px 8px', borderRadius: '6px' }}>
-              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Building2 size={11} color="var(--neon-emerald)" /> Safe Haven Ahead
+            <div style={{ background: 'rgba(0,0,0,0.45)', padding: '5px 8px', borderRadius: '6px' }}>
+              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <Building2 size={10} color="var(--neon-emerald)" /> Safe Haven Ahead
               </div>
-              <strong style={{ fontSize: '0.78rem', color: 'var(--neon-emerald)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>
+              <strong style={{ fontSize: '0.75rem', color: 'var(--neon-emerald)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>
                 Apollo 24/7 Pharmacy (45m)
               </strong>
             </div>
           </div>
 
-          {/* Emergency Contacts Real Alert Dispatch List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '130px', overflowY: 'auto' }}>
-            {contacts.map((c, i) => (
+          {/* Emergency Contacts Real Alert Dispatch List (Zero Scrollbar - Clean Display) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            {familyContacts.map((c, i) => (
               <div 
                 key={c.id || i}
                 style={{
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 42, 109, 0.3)',
-                  borderRadius: '8px',
-                  padding: '6px 10px',
+                  borderRadius: '6px',
+                  padding: '5px 8px',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}
               >
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: '0.82rem', color: '#fff' }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#fff' }}>
                     {c.name}
                   </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                     {c.phone}
                   </div>
                 </div>
@@ -269,19 +272,19 @@ export default function PanicBeacon() {
               style={{
                 background: 'rgba(255, 42, 109, 0.15)',
                 border: '1px solid var(--border-crimson)',
-                borderRadius: '8px',
-                padding: '6px 10px',
+                borderRadius: '6px',
+                padding: '5px 8px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center'
               }}
             >
               <div>
-                <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#fff' }}>
-                  Emergency Helpline (112)
+                <div style={{ fontWeight: 700, fontSize: '0.78rem', color: '#fff' }}>
+                  Police 112 & Women Helpline 1091
                 </div>
-                <div style={{ fontSize: '0.68rem', color: '#ff8cae', fontFamily: 'var(--font-mono)' }}>
-                  Police PCR & Women Helpline (1091)
+                <div style={{ fontSize: '0.65rem', color: '#ff8cae', fontFamily: 'var(--font-mono)' }}>
+                  National Emergency Dispatch
                 </div>
               </div>
 
@@ -291,7 +294,7 @@ export default function PanicBeacon() {
                   background: 'var(--neon-crimson)',
                   color: '#fff',
                   textDecoration: 'none',
-                  padding: '5px 10px',
+                  padding: '4px 10px',
                   borderRadius: '4px',
                   fontSize: '0.72rem',
                   fontWeight: 700,
@@ -311,7 +314,7 @@ export default function PanicBeacon() {
             onClick={() => handleOpenWhatsAppAlert("")}
             style={{
               width: '100%',
-              marginTop: '8px',
+              marginTop: '6px',
               padding: '6px',
               borderRadius: '6px',
               background: 'rgba(37, 211, 102, 0.18)',
@@ -331,21 +334,21 @@ export default function PanicBeacon() {
           </button>
 
           {/* Tactical Hardware Siren & Strobe Controls */}
-          <div style={{ display: 'flex', gap: '6px', marginTop: '8px' }}>
+          <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
             <button
               onClick={() => setIsSirenPlaying(prev => !prev)}
               className="hud-action-btn"
               style={{
                 flex: 1,
-                padding: '7px',
+                padding: '6px',
                 background: isSirenPlaying ? 'var(--neon-crimson)' : 'rgba(255, 42, 109, 0.25)',
                 color: '#fff',
                 border: '1px solid var(--border-crimson)',
                 borderRadius: '6px',
-                fontSize: '0.75rem'
+                fontSize: '0.72rem'
               }}
             >
-              {isSirenPlaying ? <VolumeX size={13} /> : <Volume2 size={13} />}
+              {isSirenPlaying ? <VolumeX size={12} /> : <Volume2 size={12} />}
               <span>{isSirenPlaying ? 'STOP SIREN' : 'LOUD SIREN'}</span>
             </button>
 
@@ -354,35 +357,35 @@ export default function PanicBeacon() {
               className="hud-action-btn"
               style={{
                 flex: 1,
-                padding: '7px',
+                padding: '6px',
                 background: isStrobeActive ? 'var(--neon-amber)' : 'rgba(255, 183, 3, 0.25)',
                 color: isStrobeActive ? '#070A11' : '#fff',
                 border: '1px solid rgba(255, 183, 3, 0.4)',
                 borderRadius: '6px',
-                fontSize: '0.75rem'
+                fontSize: '0.72rem'
               }}
             >
-              <Zap size={13} />
+              <Zap size={12} />
               <span>{isStrobeActive ? 'DISABLE STROBE' : 'STROBE'}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Cancel / Dismiss SOS Button (Always Visible at Bottom) */}
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '440px', width: '100%', margin: '0 auto' }}>
+      {/* Cancel / Dismiss SOS Button (Always 100% Visible at Bottom) */}
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '440px', width: '100%', margin: '4px auto 0' }}>
         <button
           onClick={dismissSOS}
           className="checkin-btn"
           style={{
             background: 'var(--neon-emerald)',
             color: '#070A11',
-            padding: '10px',
-            fontSize: '0.9rem',
+            padding: '9px',
+            fontSize: '0.88rem',
             boxShadow: '0 0 16px rgba(0, 255, 157, 0.5)'
           }}
         >
-          <CheckCircle size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+          <CheckCircle size={15} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
           <span>I AM SAFE — CANCEL SOS BEACON</span>
         </button>
       </div>

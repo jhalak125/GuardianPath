@@ -1,0 +1,145 @@
+{
+  "safe_havens": [
+    {
+      "id": "sh_1",
+      "name": "Apollo 24/7 Pharmacy & Night Safe Haven",
+      "type": "pharmacy",
+      "lat": 12.9725,
+      "lng": 77.6080,
+      "address": "MG Road Metro Boulevard, Bengaluru, Karnataka 560001",
+      "phone": "+91 80 2555 0192",
+      "features": ["24/7 Pharmacist", "Security Guard", "Well-Lit Glass Front", "Emergency First-Aid"]
+    },
+    {
+      "id": "sh_2",
+      "name": "City Police Substation & Women Helpline 1091 Booth",
+      "type": "police",
+      "lat": 12.9755,
+      "lng": 77.6120,
+      "address": "Brigade Road Junction, Bengaluru, Karnataka 560025",
+      "phone": "112 / 1091 (Toll-Free)",
+      "features": ["24/7 Armed PCR Patrol", "Pink Police Booth", "High-Def CCTV Hub"]
+    },
+    {
+      "id": "sh_3",
+      "name": "Fortis / Manipal 24/7 Emergency Trauma Center",
+      "type": "hospital",
+      "lat": 12.9705,
+      "lng": 77.6045,
+      "address": "Richmond Road Gateway, Bengaluru, Karnataka 560025",
+      "phone": "+91 80 4000 0112",
+      "features": ["24/7 Emergency ER", "Illuminated Ambulance Bay", "24/7 Armed Guard"]
+    },
+    {
+      "id": "sh_4",
+      "name": "24/7 Swagat Fuel Oasis & Store",
+      "type": "convenience",
+      "lat": 12.9785,
+      "lng": 77.6150,
+      "address": "Residency Road Junction, Bengaluru, Karnataka 560025",
+      "phone": "+91 98450 12345",
+      "features": ["24/7 Staffed", "High-Intensity LED Canopy", "CCTV Array", "ATM Safe Point"]
+    },
+    {
+      "id": "sh_5",
+      "name": "City Central Fire & Emergency Rescue Post",
+      "type": "shelter",
+      "lat": 12.9715,
+      "lng": 77.6015,
+      "address": "Mayo Hall Station, MG Road, Bengaluru 560001",
+      "phone": "101 / +91 80 2297 1500",
+      "features": ["24/7 Active Duty Crew", "Exterior Floodlights", "Emergency Call Box"]
+    },
+    {
+      "id": "sh_6",
+      "name": "MedPlus 24/7 Superstore & Safe Haven",
+      "type": "pharmacy",
+      "lat": 12.9815,
+      "lng": 77.6185,
+      "address": "Church Street Crosswalk, Bengaluru 560001",
+      "phone": "+91 80 6677 8899",
+      "features": ["24/7 Open", "Night Security", "High Pedestrian Density"]
+    }
+  ],
+  "intersections": [
+    {"id": "n_metro_exit", "name": "MG Road Metro Station Exit 2", "lat": 12.9695, "lng": 77.6020, "lighting": 0.98, "cctv": 0.95},
+    {"id": "n_mayo_hall", "name": "Mayo Hall Junction (Well-Lit)", "lat": 12.9710, "lng": 77.6045, "lighting": 0.95, "cctv": 0.90},
+    {"id": "n_apollo_hub", "name": "MG Road & Apollo 24/7 Haven", "lat": 12.9725, "lng": 77.6080, "lighting": 0.98, "cctv": 0.95},
+    {"id": "n_brigade_entry", "name": "Brigade Road Main Boulevard", "lat": 12.9740, "lng": 77.6105, "lighting": 0.98, "cctv": 0.95},
+    {"id": "n_police_booth", "name": "Brigade Police & Pink Booth 1091", "lat": 12.9755, "lng": 77.6120, "lighting": 0.98, "cctv": 0.96},
+    {"id": "n_church_street", "name": "Church Street Pedestrian Plaza", "lat": 12.9770, "lng": 77.6135, "lighting": 0.98, "cctv": 0.94},
+    {"id": "n_fuel_haven", "name": "Residency Road 24/7 Swagat Haven", "lat": 12.9785, "lng": 77.6150, "lighting": 0.98, "cctv": 0.95},
+    {"id": "n_rest_house_cres", "name": "Rest House Crescent (Safe Corridor)", "lat": 12.9800, "lng": 77.6165, "lighting": 0.96, "cctv": 0.92},
+    {"id": "n_destination_hub", "name": "Commercial St Gateway / MedPlus", "lat": 12.9815, "lng": 77.6185, "lighting": 0.98, "cctv": 0.95},
+
+    {"id": "n_dark_cut_apollo", "name": "Dark Drainage Service Cut to Apollo", "lat": 12.9715, "lng": 77.6060, "lighting": 0.15, "cctv": 0.08},
+    {"id": "n_dark_service_lane_s", "name": "Rear Service Alley South (Pitch Dark Cut)", "lat": 12.9725, "lng": 77.6060, "lighting": 0.15, "cctv": 0.10},
+    {"id": "n_dark_service_lane_n", "name": "Rear Service Alley North (Unlit Gali)", "lat": 12.9745, "lng": 77.6090, "lighting": 0.12, "cctv": 0.08},
+    {"id": "n_unlit_pass_entry", "name": "Blind Spot Gali Behind Scaffolding", "lat": 12.9770, "lng": 77.6125, "lighting": 0.20, "cctv": 0.15},
+    {"id": "n_unlit_pass_exit", "name": "Dark Construction Shortcut Exit", "lat": 12.9795, "lng": 77.6155, "lighting": 0.25, "cctv": 0.18}
+  ],
+  "streets": [
+    {"from": "n_metro_exit", "to": "n_mayo_hall", "name": "MG Road Main Boulevard", "lighting": 0.98, "cctv": 0.95, "type": "avenue"},
+    {"from": "n_mayo_hall", "to": "n_apollo_hub", "name": "MG Road Safe Corridor (LED Lit)", "lighting": 0.98, "cctv": 0.95, "type": "avenue"},
+    {"from": "n_apollo_hub", "to": "n_brigade_entry", "name": "Brigade Plaza Main Strip", "lighting": 0.98, "cctv": 0.95, "type": "avenue"},
+    {"from": "n_brigade_entry", "to": "n_police_booth", "name": "Brigade Road Police Protected Lane", "lighting": 0.98, "cctv": 0.96, "type": "avenue"},
+    {"from": "n_police_booth", "to": "n_church_street", "name": "Church Street Well-Lit Corridor", "lighting": 0.98, "cctv": 0.94, "type": "avenue"},
+    {"from": "n_church_street", "to": "n_fuel_haven", "name": "Residency Road Illuminated Avenue", "lighting": 0.98, "cctv": 0.95, "type": "avenue"},
+    {"from": "n_fuel_haven", "to": "n_rest_house_cres", "name": "Rest House Crescent Safe Strip", "lighting": 0.96, "cctv": 0.92, "type": "avenue"},
+    {"from": "n_rest_house_cres", "to": "n_destination_hub", "name": "Commercial Gateway Safe Corridor", "lighting": 0.98, "cctv": 0.95, "type": "avenue"},
+
+    {"from": "n_metro_exit", "to": "n_dark_cut_apollo", "name": "Unlit Drainage Shortcut (Dark Cut)", "lighting": 0.15, "cctv": 0.08, "type": "alley"},
+    {"from": "n_dark_cut_apollo", "to": "n_apollo_hub", "name": "Apollo Rear Dark Passage", "lighting": 0.20, "cctv": 0.10, "type": "alley"},
+
+    {"from": "n_metro_exit", "to": "n_dark_service_lane_s", "name": "Service Lane Entry (Dark Cut)", "lighting": 0.15, "cctv": 0.10, "type": "alley"},
+    {"from": "n_dark_service_lane_s", "to": "n_dark_service_lane_n", "name": "Pitch Dark Back Gali Shortcut", "lighting": 0.12, "cctv": 0.08, "type": "alley"},
+    {"from": "n_dark_service_lane_n", "to": "n_brigade_entry", "name": "Brigade Rear Blind Cut", "lighting": 0.18, "cctv": 0.12, "type": "alley"},
+    {"from": "n_dark_service_lane_n", "to": "n_unlit_pass_entry", "name": "Unlit Scaffolding Blind Cut", "lighting": 0.18, "cctv": 0.12, "type": "alley"},
+    {"from": "n_unlit_pass_entry", "to": "n_police_booth", "name": "Police Junction Back Gali Cut", "lighting": 0.22, "cctv": 0.15, "type": "alley"},
+    {"from": "n_unlit_pass_entry", "to": "n_unlit_pass_exit", "name": "Dark Construction Blind Passage", "lighting": 0.25, "cctv": 0.18, "type": "alley"},
+    {"from": "n_unlit_pass_exit", "to": "n_fuel_haven", "name": "Fuel Haven Rear Unlit Lane", "lighting": 0.28, "cctv": 0.20, "type": "alley"},
+    {"from": "n_unlit_pass_exit", "to": "n_destination_hub", "name": "Unlit Lane Direct Destination Cut", "lighting": 0.35, "cctv": 0.20, "type": "alley"}
+  ],
+  "initial_incidents": [
+    {
+      "id": "inc_1",
+      "lat": 12.9715,
+      "lng": 77.6060,
+      "category": "poor_lighting",
+      "severity": "high",
+      "description": "Pitch black service gali: streetlights broken, complete dark stretch",
+      "timestamp": "2026-08-09T08:15:00Z",
+      "upvotes": 16
+    },
+    {
+      "id": "inc_2",
+      "lat": 12.9745,
+      "lng": 77.6090,
+      "category": "suspicious_activity",
+      "severity": "medium",
+      "description": "Aggressive loitering behind dark scaffolding blind spot",
+      "timestamp": "2026-08-09T08:30:00Z",
+      "upvotes": 11
+    },
+    {
+      "id": "inc_3",
+      "lat": 12.9770,
+      "lng": 77.6125,
+      "category": "blocked_path",
+      "severity": "medium",
+      "description": "Blocked narrow pathway with dark construction debris",
+      "timestamp": "2026-08-09T08:45:00Z",
+      "upvotes": 7
+    },
+    {
+      "id": "inc_4",
+      "lat": 12.9795,
+      "lng": 77.6155,
+      "category": "poor_lighting",
+      "severity": "high",
+      "description": "Unlit rear passage: no CCTV cameras and broken lights",
+      "timestamp": "2026-08-09T09:00:00Z",
+      "upvotes": 14
+    }
+  ]
+}

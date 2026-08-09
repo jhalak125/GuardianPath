@@ -1,0 +1,701 @@
+/* Tactical Cyber-Night UI Styles - Full Responsive Design */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  position: relative;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-tactical);
+}
+
+.glass-panel-elevated {
+  background: var(--bg-surface-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
+}
+
+.glass-panel-emerald {
+  background: rgba(14, 30, 26, 0.88);
+  border: 1px solid var(--border-emerald);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.glass-panel-crimson {
+  background: rgba(35, 12, 22, 0.90);
+  border: 1px solid var(--border-crimson);
+  box-shadow: var(--shadow-glow-crimson);
+}
+
+.glass-panel-cyan {
+  background: rgba(10, 28, 38, 0.88);
+  border: 1px solid var(--border-cyan);
+  box-shadow: var(--shadow-glow-cyan);
+}
+
+/* Header Tactical HUD */
+.tactical-header {
+  height: 54px;
+  padding: 0 clamp(8px, 2vw, 18px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11, 16, 26, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 1000;
+  flex-shrink: 0;
+  gap: 8px;
+  width: 100%;
+}
+
+.hud-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.hud-logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(0, 255, 157, 0.15);
+  border: 1px solid var(--neon-emerald);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neon-emerald);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.hud-logo-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.92rem, 3vw, 1.2rem);
+  letter-spacing: 0.06em;
+  color: var(--text-highlight);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.hud-status-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.hud-badge.active {
+  color: var(--neon-emerald);
+  border-color: var(--border-emerald);
+  background: rgba(0, 255, 157, 0.08);
+}
+
+.hud-badge.warning {
+  color: var(--neon-amber);
+  border-color: rgba(255, 183, 3, 0.35);
+  background: rgba(255, 183, 3, 0.1);
+}
+
+.hud-badge.danger {
+  color: var(--neon-crimson);
+  border-color: var(--border-crimson);
+  background: rgba(255, 42, 109, 0.15);
+}
+
+/* Quick Action Top Bar buttons */
+.hud-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px clamp(6px, 1.2vw, 12px);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+
+.hud-btn-danger {
+  background: rgba(255, 42, 109, 0.25);
+  border-color: var(--border-crimson);
+  color: var(--neon-crimson);
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+}
+.hud-btn-danger:hover, .hud-btn-danger:active {
+  background: rgba(255, 42, 109, 0.5);
+  box-shadow: var(--shadow-glow-crimson);
+}
+
+.hud-btn-stealth {
+  background: rgba(157, 78, 221, 0.18);
+  border-color: var(--neon-purple);
+  color: #d8b4fe;
+}
+.hud-btn-stealth:hover, .hud-btn-stealth:active {
+  background: rgba(157, 78, 221, 0.35);
+  box-shadow: var(--shadow-glow-crimson);
+}
+
+.hud-btn-emerald {
+  background: rgba(0, 255, 157, 0.15);
+  border-color: var(--border-emerald);
+  color: var(--neon-emerald);
+}
+.hud-btn-emerald:hover, .hud-btn-emerald:active {
+  background: rgba(0, 255, 157, 0.3);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+/* Bottom Dock */
+.tactical-dock {
+  height: 56px;
+  padding: 0 clamp(4px, 1.5vw, 16px);
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
+  background: rgba(11, 16, 26, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+  flex-shrink: 0;
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: clamp(0.65rem, 2vw, 0.72rem);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  padding: 4px clamp(4px, 1vw, 10px);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+  min-height: 44px;
+}
+
+.dock-item:hover, .dock-item:active {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dock-item.active {
+  color: var(--neon-emerald);
+  background: rgba(0, 255, 157, 0.1);
+  border: 1px solid var(--border-emerald);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.dock-item.active-purple {
+  color: #c084fc;
+  background: rgba(157, 78, 221, 0.15);
+  border: 1px solid rgba(157, 78, 221, 0.4);
+}
+
+/* Main Map & HUD Layout */
+.main-stage {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Floating Overlay Panels (Desktop & Tablet) */
+.floating-overlay-left {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 360px;
+  max-width: calc(100vw - 28px);
+  max-height: calc(100% - 28px);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.floating-overlay-right {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 330px;
+  max-width: calc(100vw - 28px);
+  max-height: calc(100% - 28px);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+/* Form Controls */
+.tactical-input {
+  width: 100%;
+  background: rgba(8, 12, 20, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  padding: 10px 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.tactical-select {
+  width: 100%;
+  background: rgba(8, 12, 20, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-highlight);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Route Cards & HUD List */
+.route-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.route-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.route-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.route-card.selected-safe {
+  border-color: var(--border-emerald);
+  background: rgba(10, 24, 20, 0.88);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.route-card.selected-fastest {
+  border-color: rgba(255, 183, 3, 0.5);
+  background: rgba(26, 20, 10, 0.85);
+  box-shadow: 0 0 16px rgba(255, 183, 3, 0.25);
+}
+
+.route-badge-safe {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #070A11;
+  background: var(--neon-emerald);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.route-badge-fastest {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #070A11;
+  background: var(--neon-amber);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.safety-score-pill {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+/* Dead-Man's Switch Dial */
+.dead-man-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.countdown-svg-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-center-text {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-highlight);
+  text-align: center;
+}
+
+.checkin-btn {
+  margin-top: 6px;
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: var(--neon-emerald);
+  color: #070A11;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 16px rgba(0, 255, 157, 0.4);
+  touch-action: manipulation;
+}
+
+.checkin-btn:hover, .checkin-btn:active {
+  background: #2bffa9;
+  box-shadow: 0 0 24px rgba(0, 255, 157, 0.7);
+  transform: scale(0.99);
+}
+
+/* Fake Call Fullscreen Modal */
+.fake-call-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 4vh, 50px) clamp(14px, 3vw, 24px);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Outfit', sans-serif;
+  overflow-y: auto;
+}
+
+.fake-call-avatar {
+  width: clamp(70px, 16vw, 100px);
+  height: clamp(70px, 16vw, 100px);
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.call-btn-circle {
+  width: clamp(60px, 15vw, 74px);
+  height: clamp(60px, 15vw, 74px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  touch-action: manipulation;
+}
+.call-btn-circle:active {
+  transform: scale(0.92);
+}
+.call-btn-accept {
+  background: #34C759;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(52, 199, 89, 0.5);
+}
+.call-btn-decline {
+  background: #FF3B30;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 59, 48, 0.5);
+}
+
+/* Calculator Disguise */
+.calculator-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0px, 2vw, 16px);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Roboto, sans-serif;
+}
+
+.calc-phone-frame {
+  width: 100%;
+  max-width: 360px;
+  height: 100%;
+  max-height: 640px;
+  background: #1C1C1E;
+  border-radius: 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-display {
+  color: #ffffff;
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  font-weight: 300;
+  text-align: right;
+  padding: 4px 10px;
+  min-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.calc-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 66px;
+  max-height: 66px;
+  border-radius: 50%;
+  border: none;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  user-select: none;
+  touch-action: manipulation;
+}
+.calc-btn:active {
+  opacity: 0.6;
+  transform: scale(0.94);
+}
+.calc-btn-dark {
+  background: #505050;
+  color: #ffffff;
+}
+.calc-btn-light {
+  background: #D4D4D2;
+  color: #1C1C1E;
+}
+.calc-btn-orange {
+  background: #FF9500;
+  color: #ffffff;
+}
+.calc-btn-zero {
+  grid-column: span 2;
+  aspect-ratio: unset;
+  max-width: 100%;
+  border-radius: 33px;
+  justify-content: flex-start;
+  padding-left: 18px;
+}
+
+/* =========================================================
+   DESKTOP (FULLSCREEN): Everything Fully Visible & Expanded
+   ========================================================= */
+.desktop-routes-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-routes-view {
+  display: none;
+}
+
+.dead-man-desktop-view {
+  display: block;
+}
+
+.dead-man-mobile-view {
+  display: none;
+}
+
+.escort-desktop-telemetry {
+  display: block;
+}
+
+.btn-label-desktop {
+  display: inline;
+}
+
+/* =========================================================
+   MOBILE & TABLET: Only Essential Info in Compact Glance Mode
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .desktop-routes-view {
+    display: none;
+  }
+
+  .mobile-routes-view {
+    display: block;
+  }
+
+  .dead-man-desktop-view {
+    display: none;
+  }
+
+  .dead-man-mobile-view {
+    display: block;
+  }
+
+  .escort-desktop-telemetry {
+    display: none;
+  }
+
+  .btn-label-desktop {
+    display: none;
+  }
+
+  .hide-on-mobile {
+    display: none;
+  }
+
+  /* Mobile map bottom drawer (Unified compact card) */
+  .floating-overlay-left {
+    top: auto;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    width: auto;
+    max-width: 100%;
+    max-height: 40vh;
+    border-radius: 14px;
+    gap: 6px;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.75);
+    background: rgba(11, 16, 26, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 8px 10px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .floating-overlay-right {
+    top: auto;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    width: auto;
+    max-width: 100%;
+    max-height: 40vh;
+    border-radius: 14px;
+  }
+
+  .calculator-overlay {
+    padding: 0;
+  }
+  .calc-phone-frame {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 480px) {
+  .hud-status-group {
+    display: none;
+  }
+
+  .hud-logo-title {
+    font-size: 0.95rem;
+  }
+
+  .tactical-header {
+    height: 50px;
+  }
+
+  .tactical-dock {
+    height: 52px;
+  }
+}

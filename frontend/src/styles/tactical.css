@@ -1,4 +1,12 @@
-/* Tactical Cyber-Night UI Styles - Full Responsive Design */
+/* Leaflet Custom Marker Resets */
+.leaflet-div-icon,
+.haven-marker-icon,
+.incident-marker-icon,
+.route-origin-pin,
+.route-dest-pin {
+  background: transparent !important;
+  border: none !important;
+}
 
 .app-container {
   display: flex;

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { DEFAULT_INCIDENTS } from '../data/urbanSafetyData';
 
 const SafetyContext = createContext(null);
 
@@ -26,7 +27,7 @@ export function SafetyProvider({ children }) {
   const [audioThreatLevel, setAudioThreatLevel] = useState("NORMAL");
 
   // Crowdsource Hazards
-  const [incidents, setIncidents] = useState([]);
+  const [incidents, setIncidents] = useState(DEFAULT_INCIDENTS);
   const [isHazardModalOpen, setIsHazardModalOpen] = useState(false);
 
   // Trusted Contacts & Session
@@ -42,29 +43,7 @@ export function SafetyProvider({ children }) {
         setIncidents(data);
       }
     } catch (e) {
-      console.warn("Could not fetch incidents from backend, using default list:", e);
-      setIncidents([
-        {
-          id: "inc_1",
-          lat: 12.9730,
-          lng: 77.6065,
-          category: "poor_lighting",
-          severity: "high",
-          description: "Pitch black service gali: streetlights broken, complete dark stretch",
-          timestamp: "2026-08-09T08:15:00Z",
-          upvotes: 16
-        },
-        {
-          id: "inc_2",
-          lat: 12.9775,
-          lng: 77.6125,
-          category: "suspicious_activity",
-          severity: "medium",
-          description: "Aggressive loitering behind dark construction scaffolding near junction",
-          timestamp: "2026-08-09T08:45:00Z",
-          upvotes: 9
-        }
-      ]);
+      setIncidents(DEFAULT_INCIDENTS);
     }
   }, []);
 

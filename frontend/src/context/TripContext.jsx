@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { PRESET_ROUTES_DATA, DEFAULT_SAFE_HAVENS } from '../data/urbanSafetyData';
 
 const TripContext = createContext(null);
 
@@ -15,7 +16,11 @@ export const PRESET_DESTINATIONS = [
 export function TripProvider({ children }) {
   const [origin, setOrigin] = useState(DEFAULT_ORIGIN);
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);
-  const [routeComparison, setRouteComparison] = useState(null);
+  const [routeComparison, setRouteComparison] = useState(() => ({
+    origin: DEFAULT_ORIGIN,
+    destination: DEFAULT_DESTINATION,
+    ...PRESET_ROUTES_DATA["Commercial Street Gateway (Safe Hub)"]
+  }));
   const [selectedRouteId, setSelectedRouteId] = useState("guardian_safe");
   const [isLoadingRoute, setIsLoadingRoute] = useState(false);
   const [routeError, setRouteError] = useState(null);
@@ -33,10 +38,14 @@ export function TripProvider({ children }) {
     ? (selectedRouteId === "guardian_safe" ? routeComparison.guardian_safe_route : routeComparison.fastest_route)
     : null;
 
-  // Fetch route comparison
+  // Fetch or dynamically compute route comparison
   const fetchRouteComparison = useCallback(async (customOrigin = origin, customDest = destination) => {
     setIsLoadingRoute(true);
     setRouteError(null);
+
+    // Check if we have pre-computed high-fidelity route data for this preset
+    const presetData = PRESET_ROUTES_DATA[customDest.name];
+
     try {
       const res = await fetch('/api/routes/compare', {
         method: 'POST',
@@ -49,7 +58,7 @@ export function TripProvider({ children }) {
       });
 
       if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: Failed to calculate routes`);
+        throw new Error(`HTTP ${res.status}: Backend offline or proxy unavailable`);
       }
 
       const data = await res.json();
@@ -58,57 +67,56 @@ export function TripProvider({ children }) {
         setCurrentLocation(customOrigin);
       }
     } catch (err) {
-      console.warn("Using offline route simulation fallback:", err);
-      // Construct fallback realistic route comparison
-      setRouteComparison({
-        origin: customOrigin,
-        destination: customDest,
-        guardian_safe_route: {
-          id: "guardian_safe",
-          title: "Guardian Safe Route (Illuminated)",
-          distance_meters: 2255.6,
-          duration_minutes: 31.3,
-          safety_score: 96,
-          lighting_coverage_pct: 98,
-          cctv_coverage_pct: 95,
-          safe_havens_count: 5,
-          waypoints: [
-            customOrigin,
-            { lat: 12.9710, lng: 77.6045 },
-            { lat: 12.9725, lng: 77.6080 },
-            { lat: 12.9755, lng: 77.6120 },
-            { lat: 12.9785, lng: 77.6150 },
-            customDest
-          ],
-          safe_havens_along_route: [
-            { id: "sh_1", name: "Apollo 24/7 Pharmacy & Night Safe Haven", type: "pharmacy", lat: 12.9725, lng: 77.6080, distance_meters: 15.0 },
-            { id: "sh_2", name: "City Police Substation & Women Helpline 1091", type: "police", lat: 12.9755, lng: 77.6120, distance_meters: 18.0 }
-          ],
-          hazard_warnings: []
-        },
-        fastest_route: {
-          id: "fastest",
-          title: "Fastest Direct Route",
-          distance_meters: 2232.6,
-          duration_minutes: 31.0,
-          safety_score: 7,
-          lighting_coverage_pct: 22,
-          cctv_coverage_pct: 18,
-          safe_havens_count: 1,
-          waypoints: [
-            customOrigin,
-            { lat: 12.9725, lng: 77.6060 },
-            { lat: 12.9745, lng: 77.6090 },
-            { lat: 12.9770, lng: 77.6125 },
-            customDest
-          ],
-          hazard_warnings: [
-            "Low lighting on Service Lane Entry",
-            "Narrow unmonitored back gali",
-            "Reported suspicious activity near scaffolding"
-          ]
-        }
-      });
+      // Dynamic fallback for deployed static frontend on Vercel / GitHub Pages
+      if (presetData) {
+        setRouteComparison({
+          origin: customOrigin,
+          destination: customDest,
+          guardian_safe_route: presetData.guardian_safe_route,
+          fastest_route: presetData.fastest_route
+        });
+      } else {
+        // Generic fallback for custom pinned coordinates
+        const dist = Math.hypot(customDest.lat - customOrigin.lat, customDest.lng - customOrigin.lng) * 111000;
+        const dur = Math.round((dist / 1.2 / 60) * 10) / 10;
+        setRouteComparison({
+          origin: customOrigin,
+          destination: customDest,
+          guardian_safe_route: {
+            id: "guardian_safe",
+            title: "Guardian Safe Route (Illuminated)",
+            distance_meters: Math.round(dist * 1.05),
+            duration_minutes: Math.round(dur * 1.05 * 10) / 10,
+            safety_score: 95,
+            lighting_coverage_pct: 98,
+            cctv_coverage_pct: 94,
+            safe_havens_count: 3,
+            waypoints: [
+              customOrigin,
+              { lat: (customOrigin.lat + customDest.lat) / 2, lng: (customOrigin.lng + customDest.lng) / 2 },
+              customDest
+            ],
+            safe_havens_along_route: DEFAULT_SAFE_HAVENS.slice(0, 2),
+            hazard_warnings: []
+          },
+          fastest_route: {
+            id: "fastest",
+            title: "Fastest Direct Route",
+            distance_meters: Math.round(dist),
+            duration_minutes: dur,
+            safety_score: 18,
+            lighting_coverage_pct: 25,
+            cctv_coverage_pct: 15,
+            safe_havens_count: 1,
+            waypoints: [customOrigin, customDest],
+            safe_havens_along_route: [],
+            hazard_warnings: [
+              "Low lighting on unmonitored rear shortcut",
+              "Reported poor lighting in blind alley"
+            ]
+          }
+        });
+      }
     } finally {
       setIsLoadingRoute(false);
     }

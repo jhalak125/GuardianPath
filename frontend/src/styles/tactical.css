@@ -600,6 +600,22 @@
   display: none;
 }
 
+.desktop-tracker-view {
+  display: flex;
+}
+
+.mobile-tracker-view {
+  display: none;
+}
+
+.desktop-audio-view {
+  display: flex;
+}
+
+.mobile-audio-view {
+  display: none;
+}
+
 .dead-man-desktop-view {
   display: block;
 }
@@ -626,6 +642,22 @@
   }
 
   .mobile-routes-view {
+    display: block;
+  }
+
+  .desktop-tracker-view {
+    display: none;
+  }
+
+  .mobile-tracker-view {
+    display: block;
+  }
+
+  .desktop-audio-view {
+    display: none;
+  }
+
+  .mobile-audio-view {
     display: block;
   }
 

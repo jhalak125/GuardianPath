@@ -46,131 +46,166 @@ export default function ContactViewer() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const latStr = currentLocation ? `${currentLocation.lat.toFixed(4)}° N, ${currentLocation.lng.toFixed(4)}° E` : 'Tracking...';
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-      {/* Session Header Card */}
-      <div className="glass-panel" style={{ padding: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+    <div>
+      {/* =========================================================================
+          DESKTOP FULL VIEW: Everything Fully Expanded
+          ========================================================================= */}
+      <div className="desktop-tracker-view" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {/* Session Header Card */}
+        <div className="glass-panel" style={{ padding: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Users size={18} color="var(--neon-cyan)" />
+              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
+                TRUSTED CONTACT LIVE VIEWER
+              </span>
+            </div>
+
+            <div className={`hud-badge ${connectionStatus === 'CONNECTED' ? 'active' : 'warning'}`}>
+              <Radio size={12} className={connectionStatus === 'CONNECTED' ? 'animate-beacon-live' : ''} />
+              <span>WS {connectionStatus}</span>
+            </div>
+          </div>
+
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
+            This view displays what your authorized family & emergency contacts see in real-time as you walk.
+          </p>
+
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Users size={18} color="var(--neon-cyan)" />
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-              TRUSTED CONTACT LIVE VIEWER
+            <div style={{ flex: 1, background: 'rgba(0, 0, 0, 0.4)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--neon-cyan)' }}>
+              SESSION: {sessionId}
+            </div>
+
+            <button
+              className="hud-action-btn hud-btn-emerald"
+              onClick={copyShareLink}
+              style={{ padding: '8px 14px' }}
+            >
+              {copied ? <CheckCircle size={14} /> : <Copy size={14} />}
+              <span>{copied ? 'COPIED!' : 'SHARE LINK'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Live Peer Telemetry Stream */}
+        <div className={`glass-panel ${isSOSActive ? 'glass-panel-crimson animate-pulse-crimson' : 'glass-panel-cyan'}`} style={{ padding: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <span style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono)', color: isSOSActive ? 'var(--neon-crimson)' : 'var(--neon-cyan)' }}>
+              TELEMETRY STREAM: ANANYA / AARAV (WALKER)
+            </span>
+            <span style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
+              UPDATED: {lastPing || 'Syncing...'}
             </span>
           </div>
 
-          <div className={`hud-badge ${connectionStatus === 'CONNECTED' ? 'active' : 'warning'}`}>
-            <Radio size={12} className={connectionStatus === 'CONNECTED' ? 'animate-beacon-live' : ''} />
-            <span>WS {connectionStatus}</span>
-          </div>
-        </div>
-
-        <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
-          This view displays what your authorized family & emergency contacts see in real-time as you walk.
-        </p>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ flex: 1, background: 'rgba(0, 0, 0, 0.4)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--neon-cyan)' }}>
-            SESSION: {sessionId}
-          </div>
-
-          <button
-            className="hud-action-btn hud-btn-emerald"
-            onClick={copyShareLink}
-            style={{ padding: '8px 14px' }}
-          >
-            {copied ? <CheckCircle size={14} /> : <Copy size={14} />}
-            <span>{copied ? 'COPIED!' : 'SHARE LINK'}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Live Peer Telemetry Stream */}
-      <div className={`glass-panel ${isSOSActive ? 'glass-panel-crimson animate-pulse-crimson' : 'glass-panel-cyan'}`} style={{ padding: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-          <span style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono)', color: isSOSActive ? 'var(--neon-crimson)' : 'var(--neon-cyan)' }}>
-            TELEMETRY STREAM: ANANYA / AARAV (WALKER)
-          </span>
-          <span style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-            UPDATED: {lastPing || 'Syncing...'}
-          </span>
-        </div>
-
-        {/* Status Pill */}
-        <div style={{ 
-          background: isSOSActive ? 'var(--neon-crimson)' : 'rgba(0, 255, 157, 0.15)', 
-          color: isSOSActive ? '#fff' : 'var(--neon-emerald)',
-          border: isSOSActive ? 'none' : '1px solid var(--border-emerald)',
-          padding: '8px 12px', 
-          borderRadius: '8px', 
-          fontWeight: 700, 
-          fontSize: '0.9rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          marginBottom: '14px'
-        }}>
-          {isSOSActive ? <AlertTriangle size={18} /> : <ShieldCheck size={18} />}
-          <span>{isSOSActive ? 'CRITICAL EMERGENCY: 112 / 1091 SOS BROADCAST ACTIVE!' : (isEscortActive ? 'EN ROUTE SAFE (WELL-LIT MG ROAD CORRIDOR)' : 'STANDBY AT METRO STATION')}</span>
-        </div>
-
-        {/* Metrics Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-          <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>
-              <MapPin size={12} color="var(--neon-cyan)" /> LIVE GPS POSITION
-            </div>
-            <div style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: '#fff', marginTop: '4px' }}>
-              {currentLocation ? `${currentLocation.lat.toFixed(4)}° N, ${currentLocation.lng.toFixed(4)}° E` : 'Tracking...'}
-            </div>
+          {/* Status Pill */}
+          <div style={{ 
+            background: isSOSActive ? 'var(--neon-crimson)' : 'rgba(0, 255, 157, 0.15)', 
+            color: isSOSActive ? '#fff' : 'var(--neon-emerald)',
+            border: isSOSActive ? 'none' : '1px solid var(--border-emerald)',
+            padding: '8px 12px', 
+            borderRadius: '8px', 
+            fontWeight: 700, 
+            fontSize: '0.85rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '12px'
+          }}>
+            {isSOSActive ? <AlertTriangle size={16} /> : <ShieldCheck size={16} />}
+            <span>{isSOSActive ? 'CRITICAL EMERGENCY: 112 SOS ACTIVE!' : (isEscortActive ? 'EN ROUTE SAFE (WELL-LIT MG ROAD CORRIDOR)' : 'STANDBY AT METRO STATION')}</span>
           </div>
 
-          <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>
-              <BatteryMedium size={12} color="var(--neon-emerald)" /> BATTERY & SPEED
-            </div>
-            <div style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: '#fff', marginTop: '4px' }}>
-              88% | 1.2 m/s Walk
-            </div>
-          </div>
-
-          <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>
-              <Building2 size={12} color="var(--neon-emerald)" /> NEAREST SAFE HAVEN
-            </div>
-            <div style={{ fontSize: '11px', color: 'var(--neon-emerald)', marginTop: '4px' }}>
-              Apollo 24/7 Pharmacy Safe Hub (45m)
-            </div>
-          </div>
-
-          <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>
-              <Activity size={12} color="var(--neon-cyan)" /> AMBIENT DECIBELS
-            </div>
-            <div style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', color: '#fff', marginTop: '4px' }}>
-              {currentDecibels} dB (Normal Ambiance)
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Emergency Contacts List */}
-      <div className="glass-panel" style={{ padding: '14px' }}>
-        <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', marginBottom: '8px' }}>
-          AUTHORIZED INDIAN CONTACT SUBSCRIBERS
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {contacts.map(c => (
-            <div key={c.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255, 255, 255, 0.03)', padding: '8px 10px', borderRadius: '6px' }}>
-              <div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff' }}>{c.name}</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{c.phone} • {c.relationship}</div>
+          {/* Metrics Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+            <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--text-muted)' }}>
+                <MapPin size={11} color="var(--neon-cyan)" /> LIVE GPS POSITION
               </div>
-              <span style={{ fontSize: '0.7rem', color: 'var(--neon-emerald)', background: 'rgba(0, 255, 157, 0.1)', padding: '2px 8px', borderRadius: '4px', border: '1px solid var(--border-emerald)' }}>
-                ✓ SUBSCRIBED
+              <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#fff', marginTop: '3px' }}>
+                {latStr}
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '8px 10px', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--text-muted)' }}>
+                <BatteryMedium size={11} color="var(--neon-emerald)" /> BATTERY & SPEED
+              </div>
+              <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#fff', marginTop: '3px' }}>
+                88% | 1.2 m/s Walk
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          MOBILE COMPACT GLANCE VIEW: Fits into ~140px with Zero Scrolling
+          ========================================================================= */}
+      <div className="mobile-tracker-view">
+        <div className="glass-panel" style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          
+          {/* Row 1: Session ID + Live WS Status + Share Link */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <Users size={14} color="var(--neon-cyan)" />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--neon-cyan)', fontWeight: 600 }}>
+                {sessionId.substring(0, 14)}...
               </span>
             </div>
-          ))}
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span className={`hud-badge ${connectionStatus === 'CONNECTED' ? 'active' : 'warning'}`} style={{ padding: '2px 6px', fontSize: '0.65rem' }}>
+                WS {connectionStatus}
+              </span>
+              <button
+                className="hud-action-btn hud-btn-emerald"
+                onClick={copyShareLink}
+                style={{ padding: '4px 8px', fontSize: '0.7rem' }}
+              >
+                {copied ? <CheckCircle size={11} /> : <Copy size={11} />}
+                <span>{copied ? 'COPIED' : 'SHARE'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Row 2: Compact Status Pill */}
+          <div style={{
+            background: isSOSActive ? 'var(--neon-crimson)' : 'rgba(0, 255, 157, 0.12)',
+            color: isSOSActive ? '#fff' : 'var(--neon-emerald)',
+            border: isSOSActive ? 'none' : '1px solid rgba(0, 255, 157, 0.3)',
+            borderRadius: '6px',
+            padding: '4px 8px',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px'
+          }}>
+            {isSOSActive ? <AlertTriangle size={13} /> : <ShieldCheck size={13} />}
+            <span>{isSOSActive ? 'CRITICAL SOS ACTIVE (112 ALERTED)' : (isEscortActive ? 'EN ROUTE SAFE (WELL-LIT CORRIDOR)' : 'STANDBY AT METRO STATION')}</span>
+          </div>
+
+          {/* Row 3: 2-Column Compact Telemetry */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+            <div style={{ background: 'rgba(0, 0, 0, 0.4)', padding: '4px 6px', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>📍 GPS POSITION</div>
+              <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#fff' }}>
+                {latStr}
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(0, 0, 0, 0.4)', padding: '4px 6px', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>⚡ BATTERY & SPEED</div>
+              <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#fff' }}>
+                88% • 1.2 m/s
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
